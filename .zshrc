@@ -30,14 +30,24 @@ alias g="git"
 alias gp="git pull"
 alias gpr="git pull --rebase"
 alias gP="git push"
+alias ls="exa"
+alias ll="exa -l"
+alias la="exa -la"
 
+alias brewup="brew update && brew outdated"
+alias brewug="brew upgrade"
+
+alias cargoup="cargo install-update --all --list"
+alias cargoug="cargo install-update --all"
+
+# exports
+export TERM=xterm-256color
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
@@ -49,7 +59,16 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme
+source ~/.zsh/docker-autocomplete
+
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+
+bindkey "^[[A" history-beginning-search-backward-end
+bindkey "^[[B" history-beginning-search-forward-end
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
